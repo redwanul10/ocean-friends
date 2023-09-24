@@ -1,35 +1,32 @@
 import React from "react";
 import { styled } from "@mui/system";
-import { Fade } from "react-awesome-reveal";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
 export default function CardList({ data }) {
   return (
-    <Fade delay={2000}>
-      <div>
-        {data.map((item) => (
-          <Accordion classes={{ root: "accordion_root" }}>
-            <AccordionSummary
-              classes={{ root: "custom_root", content: "no_margin" }}
-            >
-              <Row>
-                <Image src={item.photoUri} />
-                <CardInfo>
-                  <Title>{item.title}</Title>
-                  <SubTitle>{item.subTitle}</SubTitle>
-                </CardInfo>
-                <Price>{item.price}</Price>
-              </Row>
-            </AccordionSummary>
+    <>
+      {data.map((item) => (
+        <Accordion classes={{ root: "accordion_root" }}>
+          <AccordionSummary
+            classes={{ root: "custom_root", content: "no_margin" }}
+          >
+            <Row>
+              <Image src={item.photoUri} />
+              <CardInfo>
+                <Title>{item.title}</Title>
+                <SubTitle>{item.subTitle}</SubTitle>
+              </CardInfo>
+              <Price>{item.price}</Price>
+            </Row>
+          </AccordionSummary>
 
-            <AccordionDetails classes={{ root: "details_custom_root" }}>
-              <SubTitle>XXXXXXXXXXX6479</SubTitle>
-              <SubTitle>21/09/2023</SubTitle>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </div>
-    </Fade>
+          <AccordionDetails classes={{ root: "details_custom_root" }}>
+            <SubTitle>XXXXXXXXXXX6479</SubTitle>
+            <SubTitle>21/09/2023</SubTitle>
+          </AccordionDetails>
+        </Accordion>
+      ))}
+    </>
   );
 }
 

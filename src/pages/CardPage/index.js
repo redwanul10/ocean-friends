@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { styled } from "@mui/system";
 import CardList, { MiniTitle } from "./components/CardList";
 import CountUp from "react-countup";
-import { Flip } from "react-awesome-reveal";
+import { Fade, Flip, Zoom } from "react-awesome-reveal";
 
 const data = [
   {
@@ -84,16 +84,20 @@ export default function CardPage() {
         </BalanceSection>
       </Content>
 
-      <Content
-        bgColor="#1C2641"
-        style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
-      >
-        {/* List Section */}
-        <ListSection>
-          <MiniTitle color="white">Today</MiniTitle>
-          <CardList data={data} />
-        </ListSection>
-      </Content>
+      <Zoom>
+        <Content
+          bgColor="#1C2641"
+          style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+        >
+          {/* List Section */}
+          <Fade delay={2000}>
+            <ListSection>
+              <MiniTitle color="white">Today</MiniTitle>
+              <CardList data={data} />
+            </ListSection>
+          </Fade>
+        </Content>
+      </Zoom>
     </Container>
   );
 }
