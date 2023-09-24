@@ -3,8 +3,6 @@ import { styled } from "@mui/system";
 import CardList, { MiniTitle } from "./components/CardList";
 import CountUp from "react-countup";
 import { Flip } from "react-awesome-reveal";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material";
 
 const data = [
   {
@@ -29,59 +27,73 @@ const data = [
 
 export default function CardPage() {
   const [tap, setTap] = useState(false);
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const enableTap = (e) => setTap(true);
+  const disableTap = () => setTap(false);
 
-  console.log(matches);
+  const disableContextMenu = (event) => {
+    event?.preventDefault();
+    event?.stopPropagation();
+    return false;
+  };
   return (
     <Container>
-      <ArrowIcon src={require("../../assets/icons/arrow.png")} />
+      <Content>
+        <ArrowIcon src={require("../../assets/icons/arrow.png")} />
 
-      <BigTextContainer>
-        <BigText>Salary</BigText>
-        <BigText>Card</BigText>
-      </BigTextContainer>
+        <BigTextContainer>
+          <BigText>Salary</BigText>
+          <BigText>Card</BigText>
+        </BigTextContainer>
 
-      <HorizontalCenter>
-        <Flip>
-          <CardContainer>
-            <CreditCard
-              onMouseDown={() => setTap(true)}
-              onMouseUp={() => setTap(false)}
-              className={tap ? "hide" : ""}
-              src={require("../../assets/icons/credit-card.png")}
-            />
-            <CreditCardBack
-              src={require("../../assets/images/card-back.png")}
-            />
-          </CardContainer>
-        </Flip>
-      </HorizontalCenter>
+        <HorizontalCenter>
+          <Flip>
+            <CardContainer>
+              <CreditCard
+                onMouseDown={enableTap}
+                onMouseUp={disableTap}
+                onTouchStart={enableTap}
+                onTouchEnd={disableTap}
+                onContextMenu={disableContextMenu}
+                className={tap ? "hide" : ""}
+                src={require("../../assets/images/card-front.png")}
+              />
+              <CreditCardBack
+                src={require("../../assets/images/card-back.png")}
+              />
+            </CardContainer>
+          </Flip>
+        </HorizontalCenter>
 
-      {/* Balance Section */}
-      <BalanceSection>
-        <div>
-          <MiniTitle>Balance</MiniTitle>
-          <TotalBalance>
-            $<CountUp end={2748.0} duration={1} delay={1} />
-          </TotalBalance>
-        </div>
+        {/* Balance Section */}
+        <BalanceSection>
+          <div>
+            <MiniTitle>Balance</MiniTitle>
+            <TotalBalance>
+              $<CountUp end={2748.0} duration={1} delay={1} />
+            </TotalBalance>
+          </div>
 
-        <div style={{ flexDirection: "row", display: "flex" }}>
-          <IconBox>
-            <img src={require("../../assets/icons/history.png")} alt="" />
-          </IconBox>
-          <IconBox>
-            <img src={require("../../assets/icons/share.png")} alt="" />
-          </IconBox>
-        </div>
-      </BalanceSection>
+          <div style={{ flexDirection: "row", display: "flex" }}>
+            <IconBox>
+              <img src={require("../../assets/icons/history.png")} alt="" />
+            </IconBox>
+            <IconBox>
+              <img src={require("../../assets/icons/share.png")} alt="" />
+            </IconBox>
+          </div>
+        </BalanceSection>
+      </Content>
 
-      {/* List Section */}
-      <ListSection>
-        <MiniTitle color="white">Today</MiniTitle>
-        <CardList data={data} />
-      </ListSection>
+      <Content
+        bgColor="#1C2641"
+        style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+      >
+        {/* List Section */}
+        <ListSection>
+          <MiniTitle color="white">Today</MiniTitle>
+          <CardList data={data} />
+        </ListSection>
+      </Content>
     </Container>
   );
 }
@@ -89,15 +101,19 @@ export default function CardPage() {
 const Container = styled("div")(({ theme }) => ({
   width: 350,
   margin: "0 auto",
-  background: "#1C2641",
+  background: "#313b5a",
   color: "#FFFFFF",
-  padding: 20,
-  [theme.breakpoints.down("xs")]: {
+  [theme.breakpoints.up("sm")]: {
+    margin: "50px auto",
+  },
+  [theme.breakpoints.only("xs")]: {
     width: "100%",
   },
-  "& *": {
-    fontFamily: "'Poppins', sans-serif",
-  },
+}));
+
+const Content = styled("div")(({ bgColor }) => ({
+  background: bgColor || "transparent",
+  padding: 20,
 }));
 
 const HorizontalCenter = styled("div")({
@@ -160,7 +176,6 @@ const IconBox = styled("div")({
 });
 
 const ListSection = styled("div")({
-  //   background: "#1C2641",
   background: "#1c2641",
   padding: "30px 0",
 });
