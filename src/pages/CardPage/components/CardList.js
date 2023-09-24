@@ -1,21 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
-import { Fade, Slide } from "react-awesome-reveal";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from "@mui/material";
-
-const CustomAccordion = styled(Accordion)(({ theme }) => {
-  return {
-    boxShadow: "none", // this styles directly apply to accordion
-    border: `1px solid gray`,
-    ".MuiAccordionDetails-root": {},
-    ".MuiAccordionSummary-root": {}, // this apply to Summary
-  };
-});
+import { Fade } from "react-awesome-reveal";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
 export default function CardList({ data }) {
   return (

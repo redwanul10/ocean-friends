@@ -3,6 +3,8 @@ import { styled } from "@mui/system";
 import CardList, { MiniTitle } from "./components/CardList";
 import CountUp from "react-countup";
 import { Flip } from "react-awesome-reveal";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material";
 
 const data = [
   {
@@ -27,6 +29,10 @@ const data = [
 
 export default function CardPage() {
   const [tap, setTap] = useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
+  console.log(matches);
   return (
     <Container>
       <ArrowIcon src={require("../../assets/icons/arrow.png")} />
